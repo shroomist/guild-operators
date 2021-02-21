@@ -15,6 +15,7 @@ MAX_PEERS=15                # Maximum number of peers to return on successful fe
 #CUSTOM_PEERS="None"        # *Additional* custom peers to (IP:port[:valency]) to add to your target topology.json
                             # eg: "10.0.0.1:3001|10.0.0.2:3002|relays.mydomain.com:3003:3"
 #BATCH_AUTO_UPDATE=N        # Set to Y to automatically update the script if a new version is available without user interaction
+#GIT_REPO_USER="guild-operators"            # where to fetch updates from
 
 ######################################
 # Do NOT modify code below           #
@@ -52,7 +53,8 @@ shift $((OPTIND -1))
 [[ -z "${BATCH_AUTO_UPDATE}" ]] && BATCH_AUTO_UPDATE=N
 
 # Check if update is available
-URL="https://raw.githubusercontent.com/cardano-community/guild-operators/${BRANCH}/scripts/cnode-helper-scripts"
+GIT_USR="${GIT_REPO_USER:=guild-operators}"
+URL="https://raw.githubusercontent.com/${GIT_USR}/guild-operators/${BRANCH}/scripts/cnode-helper-scripts"
 if curl -s -m 10 -o "${PARENT}"/topologyUpdater.sh.tmp ${URL}/topologyUpdater.sh && curl -s -m 10 -o "${PARENT}"/env.tmp ${URL}/env && [[ -f "${PARENT}"/topologyUpdater.sh.tmp && -f "${PARENT}"/env.tmp ]]; then
   if [[ -f "${PARENT}"/env ]]; then
     if [[ $(grep "_HOME=" "${PARENT}"/env) =~ ^#?([^[:space:]]+)_HOME ]]; then
