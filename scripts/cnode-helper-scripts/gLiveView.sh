@@ -15,6 +15,7 @@ THEME="dark"                               # dark  = suited for terminals with a
                                            # light = suited for terminals with a bright background
 NO_INTERNET_MODE="N"                       # To skip checking for auto updates or make outgoing connections to guild-operators github repository
 
+GIT_REPO_USER="guild-operators"            # where to fetch updates from
 #####################################
 # Themes                            #
 #####################################
@@ -106,7 +107,8 @@ myExit() {
 #######################################################
 clear
 if [[ "${NO_INTERNET_MODE}" == "N" ]]; then
-  URL="https://raw.githubusercontent.com/cardano-community/guild-operators/${BRANCH}/scripts/cnode-helper-scripts"
+  GIT_USR="${GIT_REPO_USER:=guild-operators}"
+  URL="https://raw.githubusercontent.com/${GIT_USR}/guild-operators/${BRANCH}/scripts/cnode-helper-scripts"
   if curl -s -f -m 10 -o "${PARENT}"/env.tmp ${URL}/env 2>/dev/null && [[ -f "${PARENT}"/env.tmp ]]; then
     if [[ -f "${PARENT}"/env ]]; then
       if [[ $(grep "_HOME=" "${PARENT}"/env) =~ ^#?([^[:space:]]+)_HOME ]]; then

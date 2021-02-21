@@ -21,6 +21,7 @@ unset CNODE_HOME
 #CURL_TIMEOUT=60        # Maximum time in seconds that you allow the file download operation to take before aborting (Default: 60s)
 #UPDATE_CHECK='Y'       # Check if there is an updated version of prereqs.sh script to download
 #SUDO='Y'               # Used by docker builds to disable sudo, leave unchanged if unsure.
+#GIT_REPO_USER="guild-operators"            # where to fetch updates from
 
 ######################################
 # Do NOT modify code below           #
@@ -121,8 +122,9 @@ CNODE_HOME=${CNODE_PATH}/${CNODE_NAME}
 CNODE_VNAME=$(echo "$CNODE_NAME" | awk '{print toupper($0)}')
 [[ -z "${BRANCH}" ]] && BRANCH="master"
 
-REPO="https://github.com/cardano-community/guild-operators"
-REPO_RAW="https://raw.githubusercontent.com/cardano-community/guild-operators"
+GIT_USR="${GIT_REPO_USER:=guild-operators}"
+REPO="https://github.com/${GIT_USR}/guild-operators"
+REPO_RAW="https://raw.githubusercontent.com/${GIT_USR}/guild-operators"
 URL_RAW="${REPO_RAW}/${BRANCH}"
 
 # Check if prereqs.sh update is available

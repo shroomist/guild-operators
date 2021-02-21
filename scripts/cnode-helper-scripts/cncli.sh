@@ -126,7 +126,8 @@ cncliInit() {
 
   # Check if update is available
   [[ -f "${PARENT}"/.env_branch ]] && BRANCH="$(cat ${PARENT}/.env_branch)" || BRANCH="master"
-  URL="https://raw.githubusercontent.com/cardano-community/guild-operators/${BRANCH}/scripts/cnode-helper-scripts"
+  GIT_USR="${GIT_REPO_USER:=guild-operators}"
+  URL="https://raw.githubusercontent.com/${GIT_USR}/guild-operators/${BRANCH}/scripts/cnode-helper-scripts"
   if curl -s -m 10 -o "${PARENT}"/cncli.sh.tmp ${URL}/cncli.sh && curl -s -m 10 -o "${PARENT}"/env.tmp ${URL}/env && [[ -f "${PARENT}"/cncli.sh.tmp && -f "${PARENT}"/env.tmp ]]; then
     if [[ -f "${PARENT}"/env ]]; then
       if [[ $(grep "_HOME=" "${PARENT}"/env) =~ ^#?([^[:space:]]+)_HOME ]]; then
