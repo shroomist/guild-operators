@@ -238,7 +238,7 @@ if [ "$WANT_BUILD_DEPS" = 'Y' ]; then
     err_exit
   fi
 
-  if [ "$WANT_BUILD_DEPS" = 'Y' ]; then
+  if [ "$WANT_INSTALL_GHC" = 'Y' ]; then
     if ! ghc --version 2>/dev/null | grep -q 8\.10\.2 || ! cabal --version 2>/dev/null | grep -q version\ 3; then
       echo "Install ghcup (The Haskell Toolchain installer) .."
       # TMP: Dirty hack to prevent ghcup interactive setup, yet allow profile set up
