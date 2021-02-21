@@ -22,6 +22,7 @@
 #CONFIRM_BLOCK_CNT=15                     # CNCLI validate: require at least these many blocks on top of minted before validating
 #TIMEOUT_LEDGER_STATE=300                 # CNCLI leaderlog: timeout in seconds for ledger-state query
 #BATCH_AUTO_UPDATE=N                      # Set to Y to automatically update the script if a new version is available without user interaction
+#GIT_REPO_USER=guild-operators            # set to use your own guild-operators fork
 
 ######################################
 # Do NOT modify code below           #
@@ -126,7 +127,8 @@ cncliInit() {
 
   # Check if update is available
   [[ -f "${PARENT}"/.env_branch ]] && BRANCH="$(cat ${PARENT}/.env_branch)" || BRANCH="master"
-  URL="https://raw.githubusercontent.com/cardano-community/guild-operators/${BRANCH}/scripts/cnode-helper-scripts"
+  GIT_USR="${GIT_REPO_USER:=guild-operators}"
+  URL="https://raw.githubusercontent.com/${GIT_USR}/guild-operators/${BRANCH}/scripts/cnode-helper-scripts"
   if curl -s -m 10 -o "${PARENT}"/cncli.sh.tmp ${URL}/cncli.sh && curl -s -m ${CURL_TIMEOUT} -o "${PARENT}"/env.tmp ${URL}/env && [[ -f "${PARENT}"/cncli.sh.tmp && -f "${PARENT}"/env.tmp ]]; then
     if [[ -f "${PARENT}"/env ]]; then
       if [[ $(grep "_HOME=" "${PARENT}"/env) =~ ^#?([^[:space:]]+)_HOME ]]; then

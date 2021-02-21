@@ -6,7 +6,9 @@
 OVERWRITE_LOCAL="N"
 
 [[ -f "${CNODE_HOME}"/scripts/.env_branch ]] && BRANCH="$(cat "${CNODE_HOME}"/scripts/.env_branch)" || BRANCH="master"
-URL_RAW="https://raw.githubusercontent.com/cardano-community/guild-operators/${BRANCH}/files/cabal.project.local"
+
+GIT_USR="${GIT_REPO_USER:=guild-operators}"
+URL_RAW="https://raw.githubusercontent.com/${GIT_USR}/guild-operators/${BRANCH}/files/cabal.project.local"
 [[ "$1" == "-o" ]] && OVERWRITE_LOCAL="Y"
 
 if [[ "${PWD##*/}" == "cardano-node" ]] && [[ "${OVERWRITE_LOCAL}" == "Y" ]]; then
