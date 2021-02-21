@@ -63,6 +63,7 @@ Install pre-requisites for building cardano node and using CNTools
 -f    Force overwrite of all files including normally saved user config sections in env, cnode.sh and gLiveView.sh
       topology.json, config.json and genesis files normally saved will also be overwritten
 -s    Skip installing OS level dependencies (Default: will check and install any missing OS level prerequisites)
+-k    Skip installing ghc, cabal
 -n    Connect to specified network instead of mainnet network (Default: connect to cardano mainnet network)
       eg: -n testnet
 -t    Alternate name for top level folder, non alpha-numeric chars will be replaced with underscore (Default: cnode)
@@ -78,11 +79,12 @@ EOF
   exit 1
 }
 
-while getopts :in:sflcwpt:m:b: opt; do
+while getopts :in:skflcwpt:m:b: opt; do
   case ${opt} in
     i ) INTERACTIVE='Y' ;;
     n ) NETWORK=${OPTARG} ;;
     s ) WANT_BUILD_DEPS='N' ;;
+    k ) WANT_INSTALL_GHC='N' ;;
     f ) FORCE_OVERWRITE='Y' ;;
     l ) LIBSODIUM_FORK='Y' ;;
     c ) INSTALL_CNCLI='Y' ;;
@@ -99,6 +101,7 @@ shift $((OPTIND -1))
 [[ -z ${INTERACTIVE} ]] && INTERACTIVE='N'
 [[ -z ${NETWORK} ]] && NETWORK='mainnet'
 [[ -z ${WANT_BUILD_DEPS} ]] && WANT_BUILD_DEPS='Y'
+[[ -z ${WANT_INSTALL_GHC} ]] && WANT_INSTALL_GHC='Y'
 [[ -z ${FORCE_OVERWRITE} ]] && FORCE_OVERWRITE='N'
 [[ -z ${LIBSODIUM_FORK} ]] && LIBSODIUM_FORK='N'
 [[ -z ${INSTALL_CNCLI} ]] && INSTALL_CNCLI='N'
@@ -236,6 +239,7 @@ if [ "$WANT_BUILD_DEPS" = 'Y' ]; then
     echo "CentOS: curl pkgconfig libffi-devel gmp-devel openssl-devel ncurses-libs ncurses-compat-libs systemd-devel zlib-devel tmux"
     err_exit
   fi
+  if [ "$WANT_BUILD_DEPS" = 'Y' ]; then
   if ! command -v ghc &>/dev/null; then
     echo "Install ghcup (The Haskell Toolchain installer) .."
     # TMP: Dirty hack to prevent ghcup interactive setup, yet allow profile set up
@@ -260,6 +264,7 @@ if [ "$WANT_BUILD_DEPS" = 'Y' ]; then
     fi
     echo "Installing Cabal v3.2.0.0 .."
     ghcup install cabal 3.2.0.0
+  fi
   fi
 fi
 
