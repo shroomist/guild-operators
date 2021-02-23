@@ -15,7 +15,6 @@ THEME="dark"                               # dark  = suited for terminals with a
                                            # light = suited for terminals with a bright background
 NO_INTERNET_MODE="N"                       # To skip checking for auto updates or make outgoing connections to guild-operators github repository
 
-GIT_REPO_USER="guild-operators"            # where to fetch updates from
 #####################################
 # Themes                            #
 #####################################

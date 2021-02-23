@@ -15,7 +15,6 @@ MAX_PEERS=15                # Maximum number of peers to return on successful fe
 #CUSTOM_PEERS="None"        # *Additional* custom peers to (IP:port[:valency]) to add to your target topology.json
                             # eg: "10.0.0.1:3001|10.0.0.2:3002|relays.mydomain.com:3003:3"
 #BATCH_AUTO_UPDATE=N        # Set to Y to automatically update the script if a new version is available without user interaction
-#GIT_REPO_USER="guild-operators"            # where to fetch updates from
 
 ######################################
 # Do NOT modify code below           #

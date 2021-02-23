@@ -68,6 +68,8 @@ CNODE_PORT=6000                                         # Set node port
 #ASSET_POLICY_SCRIPT_FILENAME="policy.script"           # File extension '.script' mandatory
 #ASSET_POLICY_ID_FILENAME="policy.id"
 
+GIT_REPO_USER="shroomist"                               # where to fetch updates from
+
 ######################################
 # Do NOT modify code below           #
 ######################################
